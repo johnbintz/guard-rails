@@ -37,6 +37,7 @@ module Guard
 
     def start_rails
       system %{sh -c 'rails s -d -e #{options[:environment]} -p #{options[:port]} --pid #{pid_file}'}
+      sleep 2
       UI.info "Rails running, PID #{File.read(pid_file)}"
     end
 

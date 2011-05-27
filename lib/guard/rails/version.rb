@@ -1,6 +1,4 @@
-module Guard
-  class Rails
-    VERSION = '0.0.1'
-  end
+module GuardRails
+  VERSION = '0.0.1'
 end
 

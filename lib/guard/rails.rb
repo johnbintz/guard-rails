@@ -6,6 +6,7 @@ module Guard
     attr_reader :options
 
     def initialize(watchers = [], options = {})
+      super
       @options = { :port => 3000, :environment => 'development', :start_on_start => true }.merge(options)
     end
 
@@ -17,7 +18,7 @@ module Guard
     def run_all
       Notifier.notify("Rails restarting on port #{options[:port]} in #{options[:environment]}", :title => "Restarting Rails...", :image => :pending)
       system %{sh -c '[[ -f tmp/pids/#{options[:environment]}.pid ]] && kill $(cat tmp/pids/#{options[:environment]}.pid)'}
-      system %{rails s -d e #{options[:environment]} -p #{options[:port]}}
+      system %{rails s -d -e #{options[:environment]} -p #{options[:port]}}
     end
 
     def run_on_change(paths)

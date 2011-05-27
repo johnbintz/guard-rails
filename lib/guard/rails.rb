@@ -16,8 +16,9 @@ module Guard
     end
 
     def run_all
-      Notifier.notify("Rails restarting on port #{options[:port]} in #{options[:environment]}", :title => "Restarting Rails...", :image => :pending)
+      Notifier.notify("Rails restarting on port #{options[:port]} in #{options[:environment]} environment...", :title => "Restarting Rails...", :image => :pending)
       stop_rails ; start_rails
+      Notifier.notify("Rails restarted on port #{options[:port]}.", :title => "Rails restarted!", :image => :success)
     end
 
     def stop
@@ -36,6 +37,7 @@ module Guard
 
     def start_rails
       system %{sh -c 'rails s -d -e #{options[:environment]} -p #{options[:port]} --pid #{pid_file}'}
+      UI.info "Rails running, PID #{File.read(pid_file)}"
     end
 
     def stop_rails

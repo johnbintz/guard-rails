@@ -30,12 +30,18 @@ module Guard
     end
 
     private
+    def pid_file
+      File.expand_path("tmp/pids/#{options[:environment]}.pid")
+    end
+
     def start_rails
-      system %{rails s -d -e #{options[:environment]} -p #{options[:port]}}
+      system %{sh -c 'rails s -d -e #{options[:environment]} -p #{options[:port]} --pid #{pid_file}'}
     end
 
     def stop_rails
-      system %{sh -c '[[ -f tmp/pids/#{options[:environment]}.pid ]] && kill $(cat tmp/pids/#{options[:environment]}.pid)'}
+      if File.file?(pid_file)
+        system %{kill -INT #{File.read(pid_file).strip}}
+      end
     end
   end
 end

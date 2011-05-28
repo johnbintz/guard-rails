@@ -36,9 +36,11 @@ module Guard
     end
 
     def start_rails
-      system %{sh -c 'rails s -d -e #{options[:environment]} -p #{options[:port]} --pid #{pid_file}'}
-      sleep 2
-      UI.info "Rails running, PID #{File.read(pid_file)}"
+      system %{sh -c 'cd #{Dir.pwd} && rails s -e #{options[:environment]} -p #{options[:port]} --pid #{pid_file} &'}
+      while !File.file?(pid_file)
+        sleep 0.5
+      end
+      UI.info "Rails restarted, pid #{File.read(pid_file)}"
     end
 
     def stop_rails

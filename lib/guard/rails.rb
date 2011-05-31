@@ -1,5 +1,6 @@
 require 'guard'
 require 'guard/guard'
+require 'rbconfig'
 
 module Guard
   class Rails < ::Guard::Guard
@@ -7,7 +8,12 @@ module Guard
 
     def initialize(watchers = [], options = {})
       super
-      @options = { :port => 3000, :environment => 'development', :start_on_start => true }.merge(options)
+      @options = {
+        :port => 3000,
+        :environment => 'development',
+        :start_on_start => true,
+        :force_run => false
+      }.merge(options)
     end
 
     def start
@@ -36,6 +42,7 @@ module Guard
     end
 
     def start_rails
+      kill_unmanaged_pid! if options[:force_run]
       system %{sh -c 'cd #{Dir.pwd} && rails s -e #{options[:environment]} -p #{options[:port]} --pid #{pid_file} &'}
       while !File.file?(pid_file)
         sleep 0.5
@@ -46,6 +53,23 @@ module Guard
     def stop_rails
       if File.file?(pid_file)
         system %{kill -INT #{File.read(pid_file).strip}}
+      end
+    end
+
+    def unmanaged_pid
+      if RbConfig::CONFIG['host_os'] =~ /darwin/
+        %x{lsof -P}.each_line { |line|
+          if line["*:#{options[:port]} "]
+            return line.split("\s")[1]
+          end
+        }
+      end
+      nil
+    end
+
+    def kill_unmanaged_pid!
+      if pid = unmanaged_pid
+        system %{kill -INT #{pid}}
       end
     end
   end

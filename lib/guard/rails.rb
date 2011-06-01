@@ -16,7 +16,7 @@ module Guard
         :force_run => false
       }.merge(options)
 
-      @runner = Guard::RailsRunner.new(options)
+      @runner = RailsRunner.new(options)
     end
 
     def start

@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'guard/rails/runner'
+require 'fakefs/spec_helpers'
 
 describe Guard::RailsRunner do
   let(:runner) { Guard::RailsRunner.new(options) }
@@ -9,6 +10,27 @@ describe Guard::RailsRunner do
   let(:default_options) { { :environment => environment, :port => port } }
   let(:options) { default_options }
   
+  describe '#pid' do
+    include FakeFS::SpecHelpers
+
+    context 'pid file exists' do
+      let(:pid) { 12345 }
+
+      before do
+        File.open(runner.pid_file, 'w') { |fh| fh.print pid }
+      end
+
+      it "should read the pid" do
+        runner.pid.should == pid
+      end
+    end
+
+    context 'pid file does not exist' do
+      it "should return nil" do
+        runner.pid.should be_nil
+      end
+    end
+  end
 
   describe '#build_rails_command' do
     context 'no daemon' do
@@ -42,7 +64,7 @@ describe Guard::RailsRunner do
       end
 
       it "should act properly" do
-        runner.start
+        runner.start.should be_true
       end
     end
 
@@ -56,7 +78,7 @@ describe Guard::RailsRunner do
       end
 
       it "should act properly" do
-        runner.start
+        runner.start.should be_true
       end
     end
 
@@ -68,7 +90,7 @@ describe Guard::RailsRunner do
       end
 
       it "should act properly" do
-        runner.start
+        runner.start.should be_false
       end
     end
   end

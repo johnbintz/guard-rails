@@ -14,6 +14,7 @@ module Guard
         wait_for_pid_action
         count += 1
       end
+      !(count == 10)
     end
 
     def stop
@@ -39,6 +40,14 @@ module Guard
       %{sh -c 'cd #{Dir.pwd} && rails s #{rails_options.join(' ')} &'}
     end
 
+    def pid_file
+      File.expand_path("tmp/pids/#{options[:environment]}.pid")
+    end
+
+    def pid
+      File.file?(pid_file) ? File.read(pid_file).to_i : nil
+    end
+
     private
     def run_rails_command!
       system build_rails_command
@@ -50,10 +59,6 @@ module Guard
 
     def wait_for_pid_action
       0.5
-    end
-
-    def pid_file
-      File.expand_path("tmp/pids/#{options[:environment]}.pid")
     end
 
     def kill_unmanaged_pid!

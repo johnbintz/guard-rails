@@ -4,3 +4,4 @@ source "http://rubygems.org"
 gemspec
 gem 'rake', '0.8.7'
 gem 'growl'
+gem 'fakefs', :require => nil

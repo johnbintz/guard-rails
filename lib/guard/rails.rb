@@ -25,11 +25,15 @@ module Guard
     end
 
     def run_all
-      UI.info "Restarting Rails"
+      UI.info "Restarting Rails..."
       Notifier.notify("Rails restarting on port #{options[:port]} in #{options[:environment]} environment...", :title => "Restarting Rails...", :image => :pending)
-      runner.restart
-      UI.info "Rails restarted, pid #{File.read(pid_file)}"
-      Notifier.notify("Rails restarted on port #{options[:port]}.", :title => "Rails restarted!", :image => :success)
+      if runner.restart
+        UI.info "Rails restarted, pid #{runner.pid}"
+        Notifier.notify("Rails restarted on port #{options[:port]}.", :title => "Rails restarted!", :image => :success)
+      else
+        UI.info "Rails NOT restarted, check your log files."
+        Notifier.notify("Rails NOT restarted, check your log files.", :title => "Rails NOT restarted!", :image => :failure)
+      end
     end
 
     def stop

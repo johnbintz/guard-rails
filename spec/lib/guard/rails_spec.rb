@@ -9,6 +9,8 @@ describe Guard::Rails do
   describe '#initialize' do
     it "should initialize with options" do
       guard
+
+      guard.runner.options[:port].should == 3000
     end
   end
 

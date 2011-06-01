@@ -58,7 +58,7 @@ module Guard
     end
 
     def wait_for_pid_action
-      sleep 0.5
+      sleep 2
     end
 
     def kill_unmanaged_pid!

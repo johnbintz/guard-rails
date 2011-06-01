@@ -1,5 +1,7 @@
 module Guard
   class RailsRunner
+    MAX_WAIT_COUNT = 10
+
     attr_reader :options
 
     def initialize(options)
@@ -10,11 +12,11 @@ module Guard
       kill_unmanaged_pid! if options[:force_run]
       run_rails_command!
       count = 0
-      while !has_pid? && count < 10
+      while !has_pid? && count < MAX_WAIT_COUNT
         wait_for_pid_action
         count += 1
       end
-      !(count == 10)
+      !(count == MAX_WAIT_COUNT)
     end
 
     def stop
@@ -48,6 +50,10 @@ module Guard
       File.file?(pid_file) ? File.read(pid_file).to_i : nil
     end
 
+    def sleep_time
+      options[:timeout].to_f / MAX_WAIT_COUNT.to_f
+    end
+
     private
     def run_rails_command!
       system build_rails_command
@@ -58,7 +64,7 @@ module Guard
     end
 
     def wait_for_pid_action
-      sleep 2
+      sleep sleep_time
     end
 
     def kill_unmanaged_pid!

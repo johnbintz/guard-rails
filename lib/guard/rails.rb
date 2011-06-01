@@ -13,7 +13,8 @@ module Guard
         :port => 3000,
         :environment => 'development',
         :start_on_start => true,
-        :force_run => false
+        :force_run => false,
+        :timeout => 20
       }.merge(options)
 
       @runner = RailsRunner.new(@options)

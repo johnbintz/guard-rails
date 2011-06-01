@@ -86,12 +86,21 @@ describe Guard::RailsRunner do
       before do
         pid_stub.returns(false)
         kill_expectation.never
-        runner.expects(:wait_for_pid_action).times(10)
+        runner.expects(:wait_for_pid_action).times(Guard::RailsRunner::MAX_WAIT_COUNT)
       end
 
       it "should act properly" do
         runner.start.should be_false
       end
+    end
+  end
+
+  describe '#sleep_time' do
+    let(:timeout) { 30 }
+    let(:options) { default_options.merge(:timeout => timeout) }
+
+    it "should adjust the sleep time as necessary" do
+      runner.sleep_time.should == (timeout.to_f / Guard::RailsRunner::MAX_WAIT_COUNT.to_f)
     end
   end
 end

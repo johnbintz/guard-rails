@@ -14,6 +14,28 @@ describe Guard::Rails do
     end
   end
 
+  describe '#start' do
+    let(:ui_expectation) { Guard::UI.expects(:info).with(regexp_matches(/#{Guard::Rails::DEFAULT_OPTIONS[:port]}/)) }
+
+    context 'start on start' do
+      it "should show the right message and run startup" do
+        guard.expects(:run_all).once
+        ui_expectation
+        guard.start
+      end
+    end
+
+    context 'no start on start' do
+      let(:options) { { :start_on_start => false } }
+
+      it "should show the right message and not run startup" do
+        guard.expects(:run_all).never
+        ui_expectation
+        guard.start
+      end
+    end
+  end
+
   describe '#run_all' do
     let(:pid) { '12345' }
 
@@ -50,6 +72,20 @@ describe Guard::Rails do
 
         guard.run_all
       end
+    end
+  end
+  
+  describe '#stop' do
+    it "should stop correctly" do
+      Guard::Notifier.expects(:notify).with('Until next time...', anything)
+      guard.stop
+    end
+  end
+
+  describe '#run_on_change' do
+    it "should run on change" do
+      guard.expects(:run_all).once
+      guard.run_on_change([])
     end
   end
 end

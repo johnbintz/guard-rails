@@ -7,21 +7,23 @@ module Guard
   class Rails < ::Guard::Guard
     attr_reader :options, :runner
 
-    def initialize(watchers = [], options = {})
-      super
-      @options = {
+    DEFAULT_OPTIONS = {
         :port => 3000,
         :environment => 'development',
         :start_on_start => true,
         :force_run => false,
         :timeout => 20
-      }.merge(options)
+      }
+
+    def initialize(watchers = [], options = {})
+      super
+      @options = DEFAULT_OPTIONS.merge(options)
 
       @runner = RailsRunner.new(@options)
     end
 
     def start
-      UI.info "Guard::Rails restarting app on port #{options[:port]} using #{options[:environment]} environment."
+      UI.info "Guard::Rails will now restart your app on port #{options[:port]} using #{options[:environment]} environment."
       run_all if options[:start_on_start]
     end
 

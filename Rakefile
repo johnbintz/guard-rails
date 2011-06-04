@@ -22,3 +22,5 @@ namespace :spec do
     exit (fail ? 1 : 0)
   end
 end
+
+task :default => 'spec:platforms'

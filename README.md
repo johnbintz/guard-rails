@@ -1,3 +1,5 @@
+[![Build Status](http://travis-ci.org/johnbintz/guard-rails.png)](http://travis-ci.org/johnbintz/guard-rails)
+
 Want to restart your Rails development server whilst you work? Now you can!
 
     guard 'rails', :port => 5000 do

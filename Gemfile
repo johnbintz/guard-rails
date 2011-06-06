@@ -4,7 +4,7 @@ source "http://rubygems.org"
 gemspec
 gem 'rake', '0.8.7'
 gem 'fakefs', :require => nil
-gem 'guard'
+gem 'guard', :git => 'https://github.com/guard/guard.git'
 gem 'guard-rspec'
 
 require 'rbconfig'

@@ -1,11 +1,8 @@
 require 'bundler'
 Bundler::GemHelper.install_tasks
+require 'rspec/core/rake_task'
 
-desc "Run on this Ruby"
-task :spec do
-    system %{rspec spec}
-    exit $?.exitstatus
-end
+RSpec::Core::RakeTask.new(:spec)
 
 namespace :spec do
   desc "Run on three Rubies"
@@ -15,8 +12,9 @@ namespace :spec do
     fail = false
     %w{1.8.7 1.9.2 ree}.each do |version|
       puts "Switching to #{version}"
-      system %{rvm #{version}}
-      system %{rspec spec}
+      Bundler.with_clean_env do
+        system %{bash -c 'source ~/.rvm/scripts/rvm && rvm #{version} && bundle && bundle exec rake spec'}
+      end
       if $?.exitstatus != 0
         fail = true
         break

@@ -1,6 +1,14 @@
+include Rake::DSL if defined?(Rake::DSL)
+
 require 'bundler'
 Bundler::GemHelper.install_tasks
 require 'rspec/core/rake_task'
+
+desc 'Push everywhere!'
+task :push_everywhere do
+  system %{git push origin master}
+  system %{git push guard master}
+end
 
 RSpec::Core::RakeTask.new(:spec)
 

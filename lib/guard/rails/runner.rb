@@ -21,7 +21,7 @@ module Guard
 
     def stop
       if File.file?(pid_file)
-        system %{kill -INT #{File.read(pid_file).strip}}
+        system %{kill -KILL #{File.read(pid_file).strip}}
       end
     end
     
@@ -69,13 +69,19 @@ module Guard
 
     def kill_unmanaged_pid!
       if pid = unmanaged_pid
-        system %{kill -INT #{pid}}
+        system %{kill -KILL #{pid}} 
       end
     end
 
     def unmanaged_pid
       if RbConfig::CONFIG['host_os'] =~ /darwin/
         %x{lsof -P}.each_line { |line|
+          if line["*:#{options[:port]} "]
+            return line.split("\s")[1]
+          end
+        }
+      elsif RbConfig::CONFIG['host_os'] =~ /linux/
+        %x{lsof -i :#{options[:port]}}.each_line { |line|
           if line["*:#{options[:port]} "]
             return line.split("\s")[1]
           end

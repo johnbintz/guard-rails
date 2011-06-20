@@ -74,14 +74,8 @@ module Guard
     end
 
     def unmanaged_pid
-      pid_command = 
-        case RbConfig::CONFIG['host_os'] 
-        when /darwin/i
-          'lsof -P'
-        when /linux/i 
-          "lsof -i :#{options[:port]}"
-        end
-      %x{#{pid_command}}.each_line { |line|
+      pid_command = "lsof -n -i TCP:#{options[:port]}"
+      %x{pid_command}.each_line { |line|
         if line["*:#{options[:port]} "]
           return line.split("\s")[1]
         end

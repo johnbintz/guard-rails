@@ -22,6 +22,7 @@ module Guard
     def stop
       if File.file?(pid_file)
         system %{kill -KILL #{File.read(pid_file).strip}}
+        sleep sleep_time
       end
     end
     
@@ -75,7 +76,7 @@ module Guard
 
     def unmanaged_pid
       pid_command = "lsof -n -i TCP:#{options[:port]}"
-      %x{pid_command}.each_line { |line|
+      %x{#{pid_command}}.each_line { |line|
         if line["*:#{options[:port]} "]
           return line.split("\s")[1]
         end

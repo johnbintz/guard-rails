@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Guard
   class RailsRunner
     MAX_WAIT_COUNT = 10
@@ -71,6 +73,7 @@ module Guard
     def kill_unmanaged_pid!
       if pid = unmanaged_pid
         system %{kill -KILL #{pid}} 
+        FileUtils.rm pid_file
       end
     end
 

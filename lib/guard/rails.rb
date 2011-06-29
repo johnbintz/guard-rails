@@ -35,7 +35,7 @@ module Guard
         Notifier.notify("Rails restarted on port #{options[:port]}.", :title => "Rails restarted!", :image => :success)
       else
         UI.info "Rails NOT restarted, check your log files."
-        Notifier.notify("Rails NOT restarted, check your log files.", :title => "Rails NOT restarted!", :image => :failure)
+        Notifier.notify("Rails NOT restarted, check your log files.", :title => "Rails NOT restarted!", :image => :failed)
       end
     end
 

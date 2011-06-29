@@ -13,18 +13,14 @@ module Guard
     def start
       kill_unmanaged_pid! if options[:force_run]
       run_rails_command!
-      count = 0
-      while !has_pid? && count < MAX_WAIT_COUNT
-        wait_for_pid_action
-        count += 1
-      end
-      !(count == MAX_WAIT_COUNT)
+      wait_for_pid
     end
 
     def stop
       if File.file?(pid_file)
         system %{kill -KILL #{File.read(pid_file).strip}}
-        sleep sleep_time
+        wait_for_no_pid if $?.exitstatus == 0
+        FileUtils.rm pid_file
       end
     end
     
@@ -72,19 +68,37 @@ module Guard
 
     def kill_unmanaged_pid!
       if pid = unmanaged_pid
-        system %{kill -KILL #{pid}} 
+        system %{kill -KILL #{pid}}
         FileUtils.rm pid_file
+        wait_for_no_pid
       end
     end
 
     def unmanaged_pid
-      pid_command = "lsof -n -i TCP:#{options[:port]}"
-      %x{#{pid_command}}.each_line { |line|
+      %x{lsof -n -i TCP:#{options[:port]}}.each_line { |line|
         if line["*:#{options[:port]} "]
           return line.split("\s")[1]
         end
       }
       nil
+    end
+
+    private
+    def wait_for_pid
+      wait_for_pid_loop
+    end
+
+    def wait_for_no_pid
+      wait_for_pid_loop(false)
+    end
+
+    def wait_for_pid_loop(check_for_existince = true)
+      count = 0
+      while !(check_for_existince ? has_pid? : !has_pid?) && count < MAX_WAIT_COUNT
+        wait_for_pid_action
+        count += 1
+      end
+      !(count == MAX_WAIT_COUNT)
     end
   end
 end

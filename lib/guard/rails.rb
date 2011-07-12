@@ -12,7 +12,8 @@ module Guard
         :environment => 'development',
         :start_on_start => true,
         :force_run => false,
-        :timeout => 20
+        :timeout => 20,
+        :server => nil
       }
 
     def initialize(watchers = [], options = {})
@@ -23,7 +24,8 @@ module Guard
     end
 
     def start
-      UI.info "Guard::Rails will now restart your app on port #{options[:port]} using #{options[:environment]} environment."
+      server = options[:server] ? "#{options[:server]} and " : ""
+      UI.info "Guard::Rails will now restart your app on port #{options[:port]} using #{server}#{options[:environment]} environment."
       run_all if options[:start_on_start]
     end
 

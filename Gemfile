@@ -2,9 +2,9 @@ source "http://rubygems.org"
 
 # Specify your gem's dependencies in guard-rails.gemspec
 gemspec
-gem 'rake', '0.8.7'
+gem 'rake'
 gem 'fakefs', :require => nil
-gem 'guard', :git => 'https://github.com/guard/guard.git'
+gem 'guard'
 gem 'guard-rspec'
 
 require 'rbconfig'

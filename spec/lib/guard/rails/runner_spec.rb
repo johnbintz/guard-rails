@@ -46,6 +46,14 @@ describe Guard::RailsRunner do
         runner.build_rails_command.should match(%r{ -d})
       end
     end
+
+    context 'custom server' do
+      let(:options) { default_options.merge(:server => 'thin') }
+
+      it "should have the server name" do
+        runner.build_rails_command.should match(%r{thin})
+      end
+    end
   end
 
   describe '#start' do

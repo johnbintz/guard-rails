@@ -23,7 +23,7 @@ module Guard
         FileUtils.rm pid_file
       end
     end
-    
+
     def restart
       stop
       start
@@ -37,6 +37,7 @@ module Guard
       ]
 
       rails_options << '-d' if options[:daemon]
+      rails_options << '-u' if options[:debugger]
       rails_options << options[:server] if options[:server]
 
       %{sh -c 'cd #{Dir.pwd} && rails s #{rails_options.join(' ')} &'}

@@ -14,7 +14,7 @@ module Guard
         :force_run => false,
         :timeout => 20,
         :server => nil,
-        :debugger => nil
+        :debugger => false
       }
 
     def initialize(watchers = [], options = {})

@@ -33,6 +33,7 @@ module Guard
       rails_options = [
         '-e', options[:environment],
         '-p', options[:port],
+        '-u', options[:debugger],
         '--pid', pid_file
       ]
 

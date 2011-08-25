@@ -13,7 +13,8 @@ module Guard
         :start_on_start => true,
         :force_run => false,
         :timeout => 20,
-        :server => nil
+        :server => nil,
+        :debugger => nil
       }
 
     def initialize(watchers = [], options = {})

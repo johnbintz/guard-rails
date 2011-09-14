@@ -17,6 +17,7 @@ describe Guard::RailsRunner do
       let(:pid) { 12345 }
 
       before do
+        FileUtils.mkdir_p File.split(runner.pid_file).first
         File.open(runner.pid_file, 'w') { |fh| fh.print pid }
       end
 

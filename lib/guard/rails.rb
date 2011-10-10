@@ -41,6 +41,8 @@ module Guard
       end
     end
 
+    alias :reload :run_all
+
     def stop
       Notifier.notify("Until next time...", :title => "Rails shutting down.", :image => :pending)
       runner.stop

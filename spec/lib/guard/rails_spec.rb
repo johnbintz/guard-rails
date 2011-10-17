@@ -19,7 +19,7 @@ describe Guard::Rails do
 
     context 'start on start' do
       it "should show the right message and run startup" do
-        guard.expects(:run_all).once
+        guard.expects(:reload).once
         ui_expectation
         guard.start
       end
@@ -29,14 +29,14 @@ describe Guard::Rails do
       let(:options) { { :start_on_start => false } }
 
       it "should show the right message and not run startup" do
-        guard.expects(:run_all).never
+        guard.expects(:reload).never
         ui_expectation
         guard.start
       end
     end
   end
 
-  describe '#run_all' do
+  describe '#reload' do
     let(:pid) { '12345' }
 
     before do
@@ -56,7 +56,7 @@ describe Guard::Rails do
         Guard::UI.expects(:info).with(regexp_matches(/#{pid}/))
         Guard::Notifier.expects(:notify).with(regexp_matches(/Rails restarted/), has_entry(:image => :success))
 
-        guard.run_all
+        guard.reload
       end
     end
 
@@ -70,11 +70,11 @@ describe Guard::Rails do
         Guard::UI.expects(:info).with(regexp_matches(/Rails NOT restarted/))
         Guard::Notifier.expects(:notify).with(regexp_matches(/Rails NOT restarted/), has_entry(:image => :failed))
 
-        guard.run_all
+        guard.reload
       end
     end
   end
-  
+
   describe '#stop' do
     it "should stop correctly" do
       Guard::Notifier.expects(:notify).with('Until next time...', anything)
@@ -83,8 +83,8 @@ describe Guard::Rails do
   end
 
   describe '#run_on_change' do
-    it "should run on change" do
-      guard.expects(:run_all).once
+    it "should reload on change" do
+      guard.expects(:reload).once
       guard.run_on_change([])
     end
   end

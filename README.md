@@ -14,6 +14,7 @@ Lots of fun options!
 * `:start_on_start` will start the server when starting Guard (default `true`)
 * `:force_run` kills any process that's holding open the listen port before attempting to (re)start Rails (default `false`).
 * `:daemon` runs the server as a daemon, without any output to the terminal that ran `guard` (default `false`).
+* `:debugger` runs the server with the debugger enabled (default `false`). Required ruby-debug gem.
 * `:timeout` waits this number of seconds when restarting the Rails server before reporting there's a problem (default `20`).
 * `:server` lets you specify the webserver engine to use (try `:server => :thin`).
 

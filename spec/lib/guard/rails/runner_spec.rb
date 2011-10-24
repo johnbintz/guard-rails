@@ -47,6 +47,14 @@ describe Guard::RailsRunner do
         runner.build_rails_command.should match(%r{ -d})
       end
     end
+    
+    context 'debugger' do
+      let(:options) { default_options.merge(:debugger => true) }
+
+      it "should have a debugger switch" do
+        runner.build_rails_command.should match(%r{ -u})
+      end
+    end
 
     context 'custom server' do
       let(:options) { default_options.merge(:server => 'thin') }

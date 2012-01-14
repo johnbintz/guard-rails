@@ -40,37 +40,58 @@ describe Guard::Rails do
     let(:pid) { '12345' }
 
     before do
-      Guard::UI.expects(:info).with('Restarting Rails...')
-      Guard::Notifier.expects(:notify).with(regexp_matches(/Rails restarting/), has_entry(:image => :pending))
       Guard::RailsRunner.any_instance.stubs(:pid).returns(pid)
     end
 
     let(:runner_stub) { Guard::RailsRunner.any_instance.stubs(:restart) }
 
-    context 'with pid file' do
+    context 'at start' do
       before do
+        Guard::UI.expects(:info).with('Starting Rails...')
+        Guard::Notifier.expects(:notify).with(regexp_matches(/Rails starting/), has_entry(:image => :pending))
         runner_stub.returns(true)
       end
 
-      it "should restart and show the pid file" do
+      it "should start and show the pid file" do
         Guard::UI.expects(:info).with(regexp_matches(/#{pid}/))
-        Guard::Notifier.expects(:notify).with(regexp_matches(/Rails restarted/), has_entry(:image => :success))
+        Guard::Notifier.expects(:notify).with(regexp_matches(/Rails started/), has_entry(:image => :success))
 
-        guard.reload
+        guard.reload("start")
       end
     end
 
-    context 'no pid file' do
+    context 'after start' do
       before do
-        runner_stub.returns(false)
+        Guard::RailsRunner.any_instance.stubs(:pid).returns(pid)
+        Guard::UI.expects(:info).with('Restarting Rails...')
+        Guard::Notifier.expects(:notify).with(regexp_matches(/Rails restarting/), has_entry(:image => :pending))
       end
 
-      it "should restart and show the pid file" do
-        Guard::UI.expects(:info).with(regexp_matches(/#{pid}/)).never
-        Guard::UI.expects(:info).with(regexp_matches(/Rails NOT restarted/))
-        Guard::Notifier.expects(:notify).with(regexp_matches(/Rails NOT restarted/), has_entry(:image => :failed))
+      context 'with pid file' do
+        before do
+          runner_stub.returns(true)
+        end
 
-        guard.reload
+        it "should restart and show the pid file" do
+          Guard::UI.expects(:info).with(regexp_matches(/#{pid}/))
+          Guard::Notifier.expects(:notify).with(regexp_matches(/Rails restarted/), has_entry(:image => :success))
+
+          guard.reload
+        end
+      end
+
+      context 'no pid file' do
+        before do
+          runner_stub.returns(false)
+        end
+
+        it "should restart and show the pid file" do
+          Guard::UI.expects(:info).with(regexp_matches(/#{pid}/)).never
+          Guard::UI.expects(:info).with(regexp_matches(/Rails NOT restarted/))
+          Guard::Notifier.expects(:notify).with(regexp_matches(/Rails NOT restarted/), has_entry(:image => :failed))
+
+          guard.reload
+        end
       end
     end
   end

@@ -12,7 +12,7 @@ module Guard
         :environment => 'development',
         :start_on_start => true,
         :force_run => false,
-        :timeout => 20,
+        :timeout => 30,
         :server => nil,
         :debugger => false
       }

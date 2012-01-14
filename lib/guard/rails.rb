@@ -27,18 +27,19 @@ module Guard
     def start
       server = options[:server] ? "#{options[:server]} and " : ""
       UI.info "Guard::Rails will now restart your app on port #{options[:port]} using #{server}#{options[:environment]} environment."
-      reload if options[:start_on_start]
+      reload("start") if options[:start_on_start]
     end
 
-    def reload
-      UI.info "Restarting Rails..."
-      Notifier.notify("Rails restarting on port #{options[:port]} in #{options[:environment]} environment...", :title => "Restarting Rails...", :image => :pending)
+    def reload(action = "restart")
+      action_cap = action.capitalize
+      UI.info "#{action_cap}ing Rails..."
+      Notifier.notify("Rails #{action}ing on port #{options[:port]} in #{options[:environment]} environment...", :title => "#{action_cap}ing Rails...", :image => :pending)
       if runner.restart
-        UI.info "Rails restarted, pid #{runner.pid}"
-        Notifier.notify("Rails restarted on port #{options[:port]}.", :title => "Rails restarted!", :image => :success)
+        UI.info "Rails #{action}ed, pid #{runner.pid}"
+        Notifier.notify("Rails #{action}ed on port #{options[:port]}.", :title => "Rails #{action}ed!", :image => :success)
       else
-        UI.info "Rails NOT restarted, check your log files."
-        Notifier.notify("Rails NOT restarted, check your log files.", :title => "Rails NOT restarted!", :image => :failed)
+        UI.info "Rails NOT #{action}ed, check your log files."
+        Notifier.notify("Rails NOT #{action}ed, check your log files.", :title => "Rails NOT #{action}ed!", :image => :failed)
       end
     end
 

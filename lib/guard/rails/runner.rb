@@ -18,9 +18,9 @@ module Guard
 
     def stop
       if File.file?(pid_file)
-        system %{kill -KILL #{File.read(pid_file).strip}}
+        system %{kill -SIGINT #{File.read(pid_file).strip}}
         wait_for_no_pid if $?.exitstatus == 0
-        FileUtils.rm pid_file
+        FileUtils.rm pid_file, :force => true
       end
     end
 

@@ -51,6 +51,8 @@ module Guard
     def run_on_changes(paths)
       reload
     end
+
+    alias :run_on_change :run_on_changes
   end
 end
 

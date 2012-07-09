@@ -40,7 +40,7 @@ module Guard
       rails_options << '-u' if options[:debugger]
       rails_options << options[:server] if options[:server]
 
-      %{sh -c 'cd #{Dir.pwd} && rails s #{rails_options.join(' ')} &'}
+      %{sh -c 'cd #{Dir.pwd} && RAILS_ENV=#{options[:environment]} rails s #{rails_options.join(' ')} &'}
     end
 
     def pid_file

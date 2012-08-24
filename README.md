@@ -1,3 +1,5 @@
+_I'm currently looking for a new maintainer for this project._
+
 [![Build Status](http://travis-ci.org/johnbintz/guard-rails.png)](http://travis-ci.org/johnbintz/guard-rails)
 
 Want to restart your Rails development server whilst you work? Now you can!

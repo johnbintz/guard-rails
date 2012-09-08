@@ -42,7 +42,7 @@ module Guard
         '--pid', pid_file
       ]
 
-      rails_options << '-d' if options[:daemon]
+      rails_options << '-d' if options[:daemon] && !windows?
       rails_options << '-u' if options[:debugger]
       rails_options << options[:server] if options[:server]
 

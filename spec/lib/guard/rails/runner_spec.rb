@@ -40,7 +40,7 @@ describe Guard::RailsRunner do
       end
     end
 
-    context 'daemon' do
+    context 'daemon', :unless => RUBY_PLATFORM =~ /mswin|msys|mingw/ do
       let(:options) { default_options.merge(:daemon => true) }
 
       it "should have a daemon switch" do

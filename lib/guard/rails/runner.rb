@@ -8,6 +8,7 @@ module Guard
 
     def initialize(options)
       @options = options
+      @root = options[:root] ? File.expand_path(options[:root]) : Dir.pwd
     end
 
     def start
@@ -40,11 +41,11 @@ module Guard
       rails_options << '-u' if options[:debugger]
       rails_options << options[:server] if options[:server]
 
-      %{sh -c 'cd #{Dir.pwd} && rails s #{rails_options.join(' ')} &'}
+      %{sh -c 'cd #{@root} && rails s #{rails_options.join(' ')} &'}
     end
 
     def pid_file
-      File.expand_path("tmp/pids/#{options[:environment]}.pid")
+      File.join(@root, "tmp/pids/#{options[:environment]}.pid")
     end
 
     def pid

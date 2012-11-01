@@ -31,6 +31,21 @@ describe Guard::RailsRunner do
         runner.pid.should be_nil
       end
     end
+
+    context 'custom rails root given' do
+      let(:options) { default_options.merge(:root => 'spec/dummy') }
+      let(:pid) { 12345 }
+
+      before do
+        FileUtils.mkdir_p File.split(runner.pid_file).first
+        File.open(runner.pid_file, 'w') { |fh| fh.print pid }
+      end
+
+      it "should point to the right pid file" do
+        runner.pid_file.should match %r{spec/dummy/tmp/pids/development.pid}
+      end
+    end
+
   end
 
   describe '#build_rails_command' do
@@ -61,6 +76,14 @@ describe Guard::RailsRunner do
 
       it "should have the server name" do
         runner.build_rails_command.should match(%r{thin})
+      end
+    end
+
+    context 'custom rails root' do
+      let(:options) { default_options.merge(:root => 'spec/dummy') }
+
+      it "should have a cd with the custom rails root" do
+        runner.build_rails_command.should match(%r{cd .*/spec/dummy &&})
       end
     end
   end

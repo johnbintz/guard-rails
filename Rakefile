@@ -15,10 +15,13 @@ RSpec::Core::RakeTask.new(:spec)
 namespace :spec do
   desc "Run on three Rubies"
   task :platforms do
-    prefix = "rvm 1.8.7,1.9.2,ree,1.9.3 do"
-    system %{#{prefix} bundle}
-    system %{#{prefix} bundle exec rake spec}
-    exit $?.exitstatus if $?.exitstatus != 0
+    platforms = %w{ 1.8.7 1.9.2 ree 1.9.3 }
+    platforms.each do |platform|
+      prefix = "rvm #{platform} do"
+      system %{#{prefix} bundle}
+      system %{#{prefix} bundle exec rake spec}
+      exit $?.exitstatus if $?.exitstatus != 0
+    end
   end
 end
 

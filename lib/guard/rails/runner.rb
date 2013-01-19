@@ -18,8 +18,10 @@ module Guard
 
     def stop
       if File.file?(pid_file)
-        system %{kill -SIGINT #{File.read(pid_file).strip}}
+        pid = File.read(pid_file).strip
+        system %{kill -SIGINT #{pid}}
         wait_for_no_pid if $?.exitstatus == 0
+        system %{kill -KILL #{pid}} # TODO: if pid still exists
         FileUtils.rm pid_file, :force => true
       end
     end

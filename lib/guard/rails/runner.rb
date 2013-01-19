@@ -35,12 +35,11 @@ module Guard
       rails_options = [
         '-e', options[:environment],
         '-p', options[:port],
-        '--pid', options[:pid_file] || pid_file
+        '--pid', options[:pid_file] || pid_file,
+        options[:daemon] ? '-d' : '',
+        options[:debugger] ? '-u' : '',
+        options[:server].nil? ? '' : options[:server],
       ]
-
-      rails_options << '-d' if options[:daemon]
-      rails_options << '-u' if options[:debugger]
-      rails_options << options[:server] if options[:server]
 
       rails_command = options[:zeus] ? 'zeus' : 'rails'
 

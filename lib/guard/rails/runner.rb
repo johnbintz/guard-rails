@@ -42,7 +42,9 @@ module Guard
       rails_options << '-u' if options[:debugger]
       rails_options << options[:server] if options[:server]
 
-      %{sh -c 'cd #{Dir.pwd} && RAILS_ENV=#{options[:environment]} rails s #{rails_options.join(' ')} &'}
+      rails_command = options[:zeus] ? 'zeus' : 'rails'
+
+      %{sh -c 'cd #{Dir.pwd} && RAILS_ENV=#{options[:environment]} #{rails_command} s #{rails_options.join(' ')} &'}
     end
 
     def pid_file

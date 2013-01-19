@@ -35,7 +35,7 @@ module Guard
       rails_options = [
         '-e', options[:environment],
         '-p', options[:port],
-        '--pid', pid_file
+        '--pid', options[:pid_file] || pid_file
       ]
 
       rails_options << '-d' if options[:daemon]

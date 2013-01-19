@@ -6,6 +6,7 @@ gem 'rake'
 gem 'fakefs', :require => nil
 gem 'guard'
 gem 'guard-rspec'
+gem 'mocha', '~> 0.12.3'
 
 require 'rbconfig'
 if RbConfig::CONFIG['target_os'] =~ /darwin/i

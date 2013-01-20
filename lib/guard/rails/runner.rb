@@ -35,7 +35,7 @@ module Guard
       rails_options = [
         '-e', options[:environment],
         '-p', options[:port],
-        '--pid', options[:pid_file] || pid_file,
+        '--pid', pid_file,
         options[:daemon] ? '-d' : '',
         options[:debugger] ? '-u' : '',
         options[:server].nil? ? '' : options[:server],
@@ -47,7 +47,7 @@ module Guard
     end
 
     def pid_file
-      File.expand_path("tmp/pids/#{options[:environment]}.pid")
+      File.expand_path(options[:pid_file] || "tmp/pids/#{options[:environment]}.pid")
     end
 
     def pid

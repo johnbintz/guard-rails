@@ -18,8 +18,10 @@ module Guard
 
     def stop
       if File.file?(pid_file)
-        system %{kill -SIGINT #{File.read(pid_file).strip}}
+        pid = File.read(pid_file).strip
+        system %{kill -SIGINT #{pid}}
         wait_for_no_pid if $?.exitstatus == 0
+        system %{kill -KILL #{pid}} # TODO: if pid still exists
         FileUtils.rm pid_file, :force => true
       end
     end
@@ -33,18 +35,19 @@ module Guard
       rails_options = [
         '-e', options[:environment],
         '-p', options[:port],
-        '--pid', pid_file
+        '--pid', pid_file,
+        options[:daemon] ? '-d' : '',
+        options[:debugger] ? '-u' : '',
+        options[:server].nil? ? '' : options[:server],
       ]
 
-      rails_options << '-d' if options[:daemon]
-      rails_options << '-u' if options[:debugger]
-      rails_options << options[:server] if options[:server]
+      rails_command = options[:zeus] ? 'zeus' : 'rails'
 
-      %{sh -c 'cd #{Dir.pwd} && RAILS_ENV=#{options[:environment]} rails s #{rails_options.join(' ')} &'}
+      %{sh -c 'cd #{Dir.pwd} && RAILS_ENV=#{options[:environment]} #{rails_command} s #{rails_options.join(' ')} &'}
     end
 
     def pid_file
-      File.expand_path("tmp/pids/#{options[:environment]}.pid")
+      File.expand_path(options[:pid_file] || "tmp/pids/#{options[:environment]}.pid")
     end
 
     def pid

@@ -1,6 +1,4 @@
-_I'm currently looking for a new maintainer for this project._
-
-[![Build Status](http://travis-ci.org/johnbintz/guard-rails.png)](http://travis-ci.org/johnbintz/guard-rails)
+[![Build Status](https://travis-ci.org/ranmocy/guard-rails.png)](https://travis-ci.org/ranmocy/guard-rails)
 
 Want to restart your Rails development server whilst you work? Now you can!
 
@@ -19,7 +17,7 @@ Lots of fun options!
 * `:debugger` runs the server with the debugger enabled (default `false`). Required ruby-debug gem.
 * `:timeout` waits this number of seconds when restarting the Rails server before reporting there's a problem (default `20`).
 * `:server` lets you specify the webserver engine to use (try `:server => :thin`).
+* `:pid_file` specify your pid_file, so that maybe you can run multiple instances with same rails_env (default `tmp/pids/[RAILS_ENV].pid`)
+* `:zeus` support [zeus](https://github.com/burke/zeus) to boost rails init speed.
 
-This is super-alpha, but it works for me! Only really hand-tested in Mac OS X. Feel free to fork'n'fix for other
-OSes, and to add some more real tests.
-
+Feel free to fork'n'fix for any willing.

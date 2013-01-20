@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
 require "guard/rails/version"
 
@@ -6,10 +5,10 @@ Gem::Specification.new do |s|
   s.name        = "guard-rails"
   s.version     = GuardRails::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["John Bintz"]
-  s.email       = ["john@coswellproductions.com"]
-  s.homepage    = ""
-  s.summary     = %q{Restart Rails when things change in your app}
+  s.authors     = ["John Bintz", "Wanzhang Sheng"]
+  s.email       = ["john@coswellproductions.com", "Ranmocy@gmail.com"]
+  s.homepage    = "https://github.com/ranmocy/guard-rails"
+  s.summary     = %q{Guard your Rails to always be there.}
   s.description = %q{Restart Rails when things change in your app}
 
   s.rubyforge_project = "guard-rails"
@@ -22,5 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'guard', '>= 0.2.2'
 
   s.add_development_dependency 'rspec', '~> 2.6.0'
-  s.add_development_dependency 'mocha'
+  s.add_development_dependency 'mocha', '~> 0.12.3'
 end

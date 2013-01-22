@@ -1,4 +1,4 @@
-_I'm currently looking for a new maintainer for this project._
+_This fork is no longer maintained. Visit [https://github.com/ranmocy/guard-rails](https://github.com/ranmocy/guard-rails) for the current official fork._
 
 [![Build Status](http://travis-ci.org/johnbintz/guard-rails.png)](http://travis-ci.org/johnbintz/guard-rails)
 

@@ -21,7 +21,9 @@ module Guard
         pid = File.read(pid_file).strip
         system %{kill -SIGINT #{pid}}
         wait_for_no_pid if $?.exitstatus == 0
-        system %{kill -KILL #{pid}} # TODO: if pid still exists
+
+        # If you lost your pid_file, you are already died.
+        system %{kill -KILL #{pid} > /dev/null 2>&1}
         FileUtils.rm pid_file, :force => true
       end
     end

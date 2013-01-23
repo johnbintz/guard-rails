@@ -43,9 +43,9 @@ module Guard
         options[:server].nil? ? '' : options[:server],
       ]
 
-      rails_command = options[:zeus] ? 'zeus' : 'rails'
+      rails_runner = options[:zeus] ? 'zeus' : 'rails'
 
-      %{sh -c 'cd #{Dir.pwd} && RAILS_ENV=#{options[:environment]} #{rails_command} s #{rails_options.join(' ')} &'}
+      %{sh -c 'cd #{Dir.pwd} && RAILS_ENV=#{options[:environment]} #{rails_runner} s #{rails_options.join(' ')} &'}
     end
 
     def pid_file

@@ -15,7 +15,8 @@ module Guard
         :timeout => 30,
         :server => nil,
         :debugger => false,
-        :pid_file => nil
+        :pid_file => nil,
+        :zeus => false,
       }
 
     def initialize(watchers = [], options = {})

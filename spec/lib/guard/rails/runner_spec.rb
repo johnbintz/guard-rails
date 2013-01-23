@@ -6,10 +6,10 @@ describe Guard::RailsRunner do
   let(:runner) { Guard::RailsRunner.new(options) }
   let(:environment) { 'development' }
   let(:port) { 3000 }
-  
+
   let(:default_options) { { :environment => environment, :port => port } }
   let(:options) { default_options }
-  
+
   describe '#pid' do
     include FakeFS::SpecHelpers
 
@@ -47,7 +47,7 @@ describe Guard::RailsRunner do
         runner.build_rails_command.should match(%r{ -d})
       end
     end
-    
+
     context 'debugger' do
       let(:options) { default_options.merge(:debugger => true) }
 

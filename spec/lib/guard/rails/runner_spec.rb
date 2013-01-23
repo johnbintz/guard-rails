@@ -63,6 +63,23 @@ describe Guard::RailsRunner do
         runner.build_rails_command.should match(%r{thin})
       end
     end
+
+    context "no pid_file" do
+      it "should use default pid_file" do
+        pid_file_path = File.expand_path "tmp/pids/development.pid"
+        runner.build_rails_command.should match(%r{ --pid #{pid_file_path}})
+      end
+    end
+
+    context "custom pid_file" do
+      let(:custom_pid_file) { "tmp/pids/rails_dev.pid" }
+      let(:options) { default_options.merge(:pid_file => custom_pid_file) }
+
+      it "should use custom pid_file" do
+        pid_file_path = File.expand_path custom_pid_file
+        runner.build_rails_command.should match(%r{ --pid #{pid_file_path}})
+      end
+    end
   end
 
   describe '#start' do

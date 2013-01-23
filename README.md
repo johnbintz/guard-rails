@@ -17,7 +17,7 @@ Lots of fun options!
 * `:debugger` runs the server with the debugger enabled (default `false`). Required ruby-debug gem.
 * `:timeout` waits this number of seconds when restarting the Rails server before reporting there's a problem (default `20`).
 * `:server` lets you specify the webserver engine to use (try `:server => :thin`).
-* `:pid_file` specify your pid_file, so that maybe you can run multiple instances with same rails_env (default `tmp/pids/[RAILS_ENV].pid`)
-* `:zeus` support [zeus](https://github.com/burke/zeus) to boost rails init speed.
+* `:pid_file` specify your pid_file, so that maybe you can run multiple instances with same rails_env (default `tmp/pids/[RAILS_ENV].pid`).
+* `:zeus` support [zeus](https://github.com/burke/zeus) to boost rails init speed (default `false`).
 
 Feel free to fork'n'fix for any willing.

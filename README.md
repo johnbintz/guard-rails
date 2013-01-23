@@ -1,4 +1,9 @@
+# Guard-rails is watching on your railses!
+
+[![Gem Version](https://badge.fury.io/rb/guard-rails.png)](http://badge.fury.io/rb/guard-rails)
 [![Build Status](https://travis-ci.org/ranmocy/guard-rails.png)](https://travis-ci.org/ranmocy/guard-rails)
+[![Dependency Status](https://gemnasium.com/ranmocy/guard-rails.png)](https://gemnasium.com/ranmocy/guard-rails)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/ranmocy/guard-rails)
 
 Want to restart your Rails development server whilst you work? Now you can!
 

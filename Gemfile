@@ -6,7 +6,6 @@ gem 'rake'
 gem 'fakefs', :require => nil
 gem 'guard'
 gem 'guard-rspec'
-gem 'mocha', '~> 0.12.3'
 
 case RUBY_PLATFORM.downcase
 when /darwin/

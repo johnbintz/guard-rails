@@ -5,9 +5,10 @@ Bundler::GemHelper.install_tasks
 require 'rspec/core/rake_task'
 
 desc 'Push everywhere!'
-task :push_everywhere do
-  system %{git push origin master}
-  system %{git push guard master}
+task :publish do
+  system %{git push origin}
+  system %{git push guard}
+  system %{git push gitcafe}
 end
 
 RSpec::Core::RakeTask.new(:spec)

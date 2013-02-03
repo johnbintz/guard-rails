@@ -23,7 +23,7 @@ module Guard
         wait_for_no_pid if $?.exitstatus == 0
 
         # If you lost your pid_file, you are already died.
-        system %{kill -KILL #{pid} > /dev/null}
+        system %{kill -KILL #{pid} >&2 2>/dev/null}
         FileUtils.rm pid_file, :force => true
       end
     end

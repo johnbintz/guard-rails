@@ -3,6 +3,7 @@
 
 guard 'bundler' do
   watch('Gemfile')
+  watch(/^.+\.gemspec/)
 end
 
 guard 'rspec', :cli => "--color --format documentation" do

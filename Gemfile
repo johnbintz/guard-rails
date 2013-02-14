@@ -7,11 +7,9 @@ gem 'fakefs', :require => nil
 gem 'guard'
 gem 'guard-rspec'
 
-case RUBY_PLATFORM.downcase
-when /darwin/
-  gem 'rb-fsevent', '>= 0.3.9'
-  gem 'growl', '>= 1.0.3'
-when /linux/
-  gem 'rb-inotify', '>= 0.5.1'
-  gem 'libnotify', '>= 0.1.3'
-end
+gem 'rb-fsevent', '>= 0.3.9'
+gem 'rb-inotify', '>= 0.5.1'
+
+# Notification System
+gem 'terminal-notifier-guard', :require => RUBY_PLATFORM.downcase.include?("darwin") ? 'terminal-notifier-guard' : nil
+gem 'libnotify', :require => RUBY_PLATFORM.downcase.include?("linux") ? 'libnotify' : nil

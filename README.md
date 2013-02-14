@@ -3,16 +3,16 @@
 [![Gem Version](https://badge.fury.io/rb/guard-rails.png)](http://badge.fury.io/rb/guard-rails)
 [![Build Status](https://travis-ci.org/ranmocy/guard-rails.png)](https://travis-ci.org/ranmocy/guard-rails)
 [![Dependency Status](https://gemnasium.com/ranmocy/guard-rails.png)](https://gemnasium.com/ranmocy/guard-rails)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/ranmocy/guard-rails)
+[![Code Climate](https://codeclimate.com/github/ranmocy/guard-rails.png)](https://codeclimate.com/github/ranmocy/guard-rails)
 
-Want to restart your Rails development server whilst you work? Now you can!
+## Want to restart your Rails development server whilst you work? Now you can!
 
     guard 'rails', :port => 5000 do
       watch('Gemfile.lock')
       watch(%r{^(config|lib)/.*})
     end
 
-Lots of fun options!
+## Lots of fun options!
 
 * `:port` is the port number to run on (default `3000`)
 * `:environment` is the environment to use (default `development`)
@@ -25,4 +25,5 @@ Lots of fun options!
 * `:pid_file` specify your pid_file, so that maybe you can run multiple instances with same rails_env (default `tmp/pids/[RAILS_ENV].pid`).
 * `:zeus` support [zeus](https://github.com/burke/zeus) to boost rails init speed (default `false`).
 
+## Contribute
 Feel free to fork'n'fix for any willing.

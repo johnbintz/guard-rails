@@ -5,6 +5,7 @@ gemspec
 gem 'rake'
 gem 'fakefs', :require => nil
 gem 'guard'
+gem 'guard-bundler'
 gem 'guard-rspec'
 
 gem 'rb-fsevent', '>= 0.3.9'

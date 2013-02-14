@@ -1,4 +1,5 @@
 include Rake::DSL if defined?(Rake::DSL)
+RVM_PREFIX = "rvm 1.8.7@guard-rails,1.9.3-p327@guard-rails,2.0.0@guard-rails do"
 
 require 'bundler'
 Bundler::GemHelper.install_tasks
@@ -16,9 +17,8 @@ RSpec::Core::RakeTask.new(:spec)
 namespace :spec do
   desc "Run on three Rubies"
   task :platforms do
-    prefix = "rvm 1.8.7,1.9.2,ree,1.9.3 do"
-    system %{#{prefix} bundle}
-    system %{#{prefix} bundle exec rake spec}
+    system %{#{RVM_PREFIX} bundle}
+    system %{#{RVM_PREFIX} bundle exec rake spec}
     exit $?.exitstatus if $?.exitstatus != 0
   end
 end

@@ -1,9 +1,8 @@
 $:.push File.expand_path("../lib", __FILE__)
-require "guard/rails/version"
 
 Gem::Specification.new do |s|
   s.name        = "guard-rails"
-  s.version     = GuardRails.version
+  s.version     = File.open('VERSION') { |f| f.read }
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["John Bintz", "Wanzhang Sheng"]
   s.email       = ["john@coswellproductions.com", "Ranmocy@gmail.com"]
@@ -19,6 +18,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'guard', '>= 0.2.2'
+  s.add_dependency 'version', '>= 1.0.0'
 
   s.add_development_dependency 'rspec', '>= 2.6.0'
   s.add_development_dependency 'mocha', '>= 0.13.1'

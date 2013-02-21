@@ -2,9 +2,13 @@ require 'guard'
 require 'guard/guard'
 require 'guard/rails/runner'
 require 'rbconfig'
+require "version"
 
 module Guard
   class Rails < ::Guard::Guard
+    # Use gem `version` to support versioning
+    is_versioned
+
     attr_reader :options, :runner
 
     DEFAULT_OPTIONS = {

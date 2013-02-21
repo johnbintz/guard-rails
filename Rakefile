@@ -16,9 +16,8 @@ RVM_PREFIX = "rvm 1.8.7@guard-rails,1.9.3-p327@guard-rails,2.0.0@guard-rails do"
 namespace :spec do
   desc "Run on three Rubies"
   task :platforms do
-    system %{#{RVM_PREFIX} bundle}
-    system %{#{RVM_PREFIX} bundle exec rake spec}
-    exit $?.exitstatus if $?.exitstatus != 0
+    exit $?.exitstatus unless system "#{RVM_PREFIX} bundle install"
+    exit $?.exitstatus unless system "#{RVM_PREFIX} bundle exec rake spec"
   end
 end
 

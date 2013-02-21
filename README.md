@@ -14,16 +14,22 @@
 
 ## Lots of fun options!
 
-* `:port` is the port number to run on (default `3000`)
-* `:environment` is the environment to use (default `development`)
-* `:start_on_start` will start the server when starting Guard (default `true`)
-* `:force_run` kills any process that's holding open the listen port before attempting to (re)start Rails (default `false`).
-* `:daemon` runs the server as a daemon, without any output to the terminal that ran `guard` (default `false`).
-* `:debugger` runs the server with the debugger enabled (default `false`). Required ruby-debug gem.
-* `:timeout` waits this number of seconds when restarting the Rails server before reporting there's a problem (default `20`).
-* `:server` lets you specify the webserver engine to use (try `:server => :thin`).
-* `:pid_file` specify your pid_file, so that maybe you can run multiple instances with same rails_env (default `tmp/pids/[RAILS_ENV].pid`).
-* `:zeus` support [zeus](https://github.com/burke/zeus) to boost rails init speed (default `false`).
+* `:CLI` construct the runner command as your willing! Will omit all options below!
+* `:daemon` runs the server as a daemon, without any output to the terminal that ran `guard` (**default `false`**)
+* `:debugger` enable the debugger in server. Required ruby-debug gem. (**default `false`**)
+* `:environment` is the server environment (**default `development`**)
+* `:force_run` kills any process that's holding the listen port before attempting to (re)start Rails (**default `false`**)
+* `:pid_file` specify your pid\_file (**default `tmp/pids/[RAILS_ENV].pid`**)
+* `:port` is the server port number (**default `3000`**)
+* `:server` the webserver engine to use (**try `:server => :thin`**)
+* `:start_on_start` will start the server when starting Guard (**default `true`**)
+* `:timeout` waits when restarting the Rails server, in seconds (**default `30`**).
+* `:zeus_plan` the [custom plan](https://github.com/burke/zeus/blob/master/docs/ruby/modifying.md) in zeus, only works when `zeus` option is `true` (**default `server`**)
+* `:zeus` support [zeus](https://github.com/burke/zeus) to boost rails init speed (**default `false`**).
+
+## How-to
+
+* **Multiple instances** use `pid_file` option to run multiple instances with same rails\_env
 
 ## Contribute
 Feel free to fork'n'fix for any willing.

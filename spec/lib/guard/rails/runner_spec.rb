@@ -34,17 +34,38 @@ describe Guard::RailsRunner do
   end
 
   describe '#build_rails_command' do
-    context 'no daemon' do
-      it "should not have a daemon switch" do
+    context "CLI" do
+      let(:custom_cli) { 'custom_CLI_command' }
+      let(:options) { default_options.merge(:CLI => custom_cli) }
+
+      it "should have only custom CLI" do
+        runner.build_rails_command.should match(%r{&& #{custom_cli} &})
+      end
+    end
+
+    context "daemon" do
+      it "should should not have daemon switch" do
         runner.build_rails_command.should_not match(%r{ -d})
       end
     end
 
-    context 'daemon' do
+    context "no daemon" do
       let(:options) { default_options.merge(:daemon => true) }
-
       it "should have a daemon switch" do
         runner.build_rails_command.should match(%r{ -d})
+      end
+    end
+
+    context "development" do
+      it "should have environment switch to development" do
+        runner.build_rails_command.should match(%r{ -e development})
+      end
+    end
+
+    context "test" do
+      let(:options) { default_options.merge(:environment => 'test') }
+      it "should have environment switch to test" do
+        runner.build_rails_command.should match(%r{ -e test})
       end
     end
 
@@ -78,6 +99,31 @@ describe Guard::RailsRunner do
       it "should use custom pid_file" do
         pid_file_path = File.expand_path custom_pid_file
         runner.build_rails_command.should match(%r{ --pid #{pid_file_path}})
+      end
+    end
+
+    context "zeus enabled" do
+      let(:options) { default_options.merge(:zeus => true) }
+      it "should have zeus in command" do
+        runner.build_rails_command.should match(%r{ zeus server })
+      end
+
+      context "custom zeus plan" do
+        let(:options) { default_options.merge(:zeus => true, :zeus_plan => 'test_server') }
+        it "should use custom zeus plan" do
+          runner.build_rails_command.should match(%r{ zeus test_server})
+        end
+      end
+    end
+
+    context "zeus disabled" do
+      it "should not have zeus in command" do
+        runner.build_rails_command.should_not match(%r{ zeus server })
+      end
+
+      let(:options) { default_options.merge(:zeus_plan => 'test_server') }
+      it "should have no effect of command" do
+        runner.build_rails_command.should_not match(%r{test_server})
       end
     end
   end

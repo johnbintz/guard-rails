@@ -8,16 +8,19 @@ module Guard
     attr_reader :options, :runner
 
     DEFAULT_OPTIONS = {
-        :port => 3000,
-        :environment => 'development',
-        :start_on_start => true,
-        :force_run => false,
-        :timeout => 30,
-        :server => nil,
-        :debugger => false,
-        :pid_file => nil,
-        :zeus => false,
-      }
+      :CLI => nil,
+      :daemon => false,
+      :debugger => false,
+      :environment => 'development',
+      :force_runs => false,
+      :pid_file => nil, # construct the filename based on options[:environment] on runtime
+      :port => 3000,
+      :server => nil, # specified by rails
+      :start_on_start => true,
+      :timeout => 30,
+      :zeus_plan => 'server',
+      :zeus => false,
+    }
 
     def initialize(watchers = [], options = {})
       super
@@ -57,4 +60,3 @@ module Guard
     alias :run_on_change :run_on_changes
   end
 end
-

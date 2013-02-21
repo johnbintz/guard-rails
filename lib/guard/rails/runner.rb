@@ -34,19 +34,25 @@ module Guard
     end
 
     def build_rails_command
+      return %{sh -c 'cd #{Dir.pwd} && #{options[:CLI]} &'} if options[:CLI]
+
       rails_options = [
+        options[:daemon] && '-d',
+        options[:debugger] && '-u',
         '-e', options[:environment],
-        '-p', options[:port],
         '--pid', pid_file,
-        options[:daemon] ? '-d' : '',
-        options[:debugger] ? '-u' : '',
-        options[:server].nil? ? '' : options[:server],
+        '-p', options[:port],
+        options[:server] || '',
+      ]
+
+      zeus_options = [
+        options[:zeus_plan] || 'server',
       ]
 
       # omit env when use zeus
-      rails_runner = options[:zeus] ? 'zeus' : "RAILS_ENV=#{options[:environment]} rails"
+      rails_runner = options[:zeus] ? "zeus #{zeus_options.join(' ')}" : "RAILS_ENV=#{options[:environment]} rails server"
 
-      %{sh -c 'cd #{Dir.pwd} && #{rails_runner} server #{rails_options.join(' ')} &'}
+      %{sh -c 'cd #{Dir.pwd} && #{rails_runner} #{rails_options.join(' ')} &'}
     end
 
     def pid_file

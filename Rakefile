@@ -27,3 +27,10 @@ task :publish do
   system %{git push guard}
   system %{git push gitcafe}
 end
+
+desc 'Push tags'
+task :publish_tags do
+  system %{git push origin --tags}
+  system %{git push guard --tags}
+  system %{git push gitcafe --tags}
+end

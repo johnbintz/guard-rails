@@ -38,14 +38,14 @@ describe Guard::RailsRunner do
       let(:custom_cli) { 'custom_CLI_command' }
       let(:options) { default_options.merge(:CLI => custom_cli) }
       it "should have only custom CLI" do
-        runner.build_rails_command.should match(%r{&& #{custom_cli} --pid })
+        runner.build_rails_command.should match(%r{#{custom_cli} --pid })
       end
 
       let(:custom_pid_file) { "tmp/pids/rails_dev.pid" }
       let(:options) { default_options.merge(:CLI => custom_cli, :pid_file => custom_pid_file) }
       it "should use custom pid_file" do
         pid_file_path = File.expand_path custom_pid_file
-        runner.build_rails_command.should match(%r{&& #{custom_cli} --pid #{pid_file_path}})
+        runner.build_rails_command.should match(%r{#{custom_cli} --pid #{pid_file_path}})
       end
     end
 
@@ -111,20 +111,27 @@ describe Guard::RailsRunner do
     context "zeus enabled" do
       let(:options) { default_options.merge(:zeus => true) }
       it "should have zeus in command" do
-        runner.build_rails_command.should match(%r{ zeus server })
+        runner.build_rails_command.should match(%r{zeus server })
       end
 
       context "custom zeus plan" do
         let(:options) { default_options.merge(:zeus => true, :zeus_plan => 'test_server') }
         it "should use custom zeus plan" do
-          runner.build_rails_command.should match(%r{ zeus test_server})
+          runner.build_rails_command.should match(%r{zeus test_server})
+        end
+
+        context "custom server" do
+          let(:options) { default_options.merge(:zeus => true, :zeus_plan => 'test_server', :server => 'thin') }
+          it "should use custom server" do
+            runner.build_rails_command.should match(%r{zeus test_server .* thin})
+          end
         end
       end
     end
 
     context "zeus disabled" do
       it "should not have zeus in command" do
-        runner.build_rails_command.should_not match(%r{ zeus server })
+        runner.build_rails_command.should_not match(%r{zeus server })
       end
 
       let(:options) { default_options.merge(:zeus_plan => 'test_server') }

@@ -3,7 +3,7 @@ require "guard/rails/version"
 
 Gem::Specification.new do |s|
   s.name        = "guard-rails"
-  s.version     = GuardRails::VERSION
+  s.version     = GuardRails.version
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["John Bintz", "Wanzhang Sheng"]
   s.email       = ["john@coswellproductions.com", "Ranmocy@gmail.com"]

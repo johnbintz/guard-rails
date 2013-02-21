@@ -33,3 +33,11 @@
 
 ## Contribute
 Feel free to fork'n'fix for any willing.
+
+Or
+
+Tell.me in: any.way
+
+## Philosophy
+
+* [Semantic Version](http://semver.org/)

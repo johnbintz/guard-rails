@@ -5,9 +5,7 @@ require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
 require 'rake/version_task'
-Rake::VersionTask.new do |task|
-  task.with_git_tag = true
-end
+Rake::VersionTask.new
 
 include Rake::DSL if defined?(Rake::DSL)
 RVM_PREFIX = "rvm 1.8.7@guard-rails,1.9.3-p327@guard-rails,2.0.0@guard-rails do"

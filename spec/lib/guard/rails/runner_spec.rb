@@ -37,9 +37,15 @@ describe Guard::RailsRunner do
     context "CLI" do
       let(:custom_cli) { 'custom_CLI_command' }
       let(:options) { default_options.merge(:CLI => custom_cli) }
-
       it "should have only custom CLI" do
-        runner.build_rails_command.should match(%r{&& #{custom_cli} &})
+        runner.build_rails_command.should match(%r{&& #{custom_cli} --pid })
+      end
+
+      let(:custom_pid_file) { "tmp/pids/rails_dev.pid" }
+      let(:options) { default_options.merge(:CLI => custom_cli, :pid_file => custom_pid_file) }
+      it "should use custom pid_file" do
+        pid_file_path = File.expand_path custom_pid_file
+        runner.build_rails_command.should match(%r{&& #{custom_cli} --pid #{pid_file_path}})
       end
     end
 

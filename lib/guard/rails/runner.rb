@@ -34,7 +34,7 @@ module Guard
     end
 
     def build_rails_command
-      return %{sh -c 'cd #{Dir.pwd} && #{options[:CLI]} &'} if options[:CLI]
+      return %{sh -c 'cd #{Dir.pwd} && #{options[:CLI]} --pid #{pid_file} &'} if options[:CLI]
 
       rails_options = [
         options[:daemon] && '-d',

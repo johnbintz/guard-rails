@@ -12,9 +12,8 @@
       watch(%r{^(config|lib)/.*})
     end
 
-## Lots of fun options!
+## Lots of fun options growing!
 
-* `:CLI` construct the runner command as your willing! Will omit all options below!
 * `:daemon` runs the server as a daemon, without any output to the terminal that ran `guard` (**default `false`**)
 * `:debugger` enable the debugger in server. Required ruby-debug gem. (**default `false`**)
 * `:environment` is the server environment (**default `development`**)
@@ -26,6 +25,7 @@
 * `:timeout` waits when restarting the Rails server, in seconds (**default `30`**).
 * `:zeus_plan` the [custom plan](https://github.com/burke/zeus/blob/master/docs/ruby/modifying.md) in zeus, only works when `zeus` option is `true` (**default `server`**)
 * `:zeus` support [zeus](https://github.com/burke/zeus) to boost rails init speed (**default `false`**).
+* `:CLI` construct the runner command as your willing! Will omit all options above except `pid_file`! (**default `rails server --pid tmp/pids/[RAILS_ENV].pid`**)
 
 ## How-to
 

@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'guard', '>= 0.2.2'
-  s.add_dependency 'version', '>= 1.0.0'
 
   s.add_development_dependency 'rspec', '>= 2.6.0'
   s.add_development_dependency 'mocha', '>= 0.13.1'
+  s.add_development_dependency 'version', '>= 1.0.0'
 end

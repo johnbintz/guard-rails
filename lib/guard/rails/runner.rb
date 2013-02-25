@@ -7,6 +7,7 @@ module Guard
     attr_reader :options
 
     def initialize(options)
+      @env     = ENV
       @options = options
     end
 
@@ -36,6 +37,8 @@ module Guard
     def build_rails_command
       return %{#{options[:CLI]} --pid #{pid_file}} if options[:CLI]
 
+      @env['RAILS_ENV'] = options[:environment] if options[:environment]
+
       rails_options = [
         options[:daemon] ? '-d' : nil,
         options[:debugger] ? '-u' : nil,
@@ -50,7 +53,7 @@ module Guard
       ]
 
       # omit env when use zeus
-      rails_runner = options[:zeus] ? "zeus #{zeus_options.join(' ')}" : "RAILS_ENV=#{options[:environment]} rails server"
+      rails_runner = options[:zeus] ? "zeus #{zeus_options.join(' ')}" : "rails server"
 
       %{#{rails_runner} #{rails_options.join(' ')}}
     end
@@ -69,7 +72,7 @@ module Guard
 
     private
     def run_rails_command!
-      system "sh -c '#{build_rails_command}'"
+      Process.spawn @env, build_rails_command
     end
 
     def has_pid?

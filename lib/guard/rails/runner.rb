@@ -37,8 +37,6 @@ module Guard
     def build_rails_command
       return %{#{options[:CLI]} --pid #{pid_file}} if options[:CLI]
 
-      @env['RAILS_ENV'] = options[:environment] if options[:environment]
-
       rails_options = [
         options[:daemon] ? '-d' : nil,
         options[:debugger] ? '-u' : nil,
@@ -53,6 +51,7 @@ module Guard
       ]
 
       # omit env when use zeus
+      @env['RAILS_ENV'] = options[:environment] if options[:environment] && options[:zeus].nil?
       rails_runner = options[:zeus] ? "zeus #{zeus_options.join(' ')}" : "rails server"
 
       %{#{rails_runner} #{rails_options.join(' ')}}

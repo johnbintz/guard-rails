@@ -5,6 +5,10 @@
 [![Dependency Status](https://gemnasium.com/ranmocy/guard-rails.png)](https://gemnasium.com/ranmocy/guard-rails)
 [![Code Climate](https://codeclimate.com/github/ranmocy/guard-rails.png)](https://codeclimate.com/github/ranmocy/guard-rails)
 
+## Main repository
+Currently, the official fork repository is at [ranmocy/guard-rails](http://github.com/ranmocy/guard-rails).
+Please, come here and communicate with me.
+
 ## Want to restart your Rails development server whilst you work? Now you can!
 
     guard 'rails', :port => 5000 do
@@ -50,11 +54,12 @@ $ guard init rails
 * **Multiple instances** use `pid_file` option to run multiple instances with same rails\_env
 
 ## Contribute
-Feel free to fork'n'fix for any willing.
 
-Or
+The best choise to contact me is the Issues and Pull Request system on GitHub.
+Currently the official fork repository is at [ranmocy/guard-rails](http://github.com/ranmocy/guard-rails).
 
-Tell.me in: any.way
+Please, post your issue or pull request there.
+And I will be there as your call.
 
 ## Philosophy
 

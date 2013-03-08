@@ -8,6 +8,7 @@ module Guard
 
     def initialize(options)
       @options = options
+      @root = options[:root] ? File.expand_path(options[:root]) : Dir.pwd
     end
 
     def start
@@ -42,7 +43,7 @@ module Guard
     end
 
     def pid_file
-      File.expand_path(options[:pid_file] || "tmp/pids/#{options[:environment]}.pid")
+      File.expand_path(options[:pid_file] || File.join(@root, "tmp/pids/#{options[:environment]}.pid"))
     end
 
     def pid
@@ -90,7 +91,7 @@ module Guard
     end
 
     def run_rails_command!
-      `sh -c '#{build_command} &'`
+      `sh -c 'cd #{@root} && #{build_command} &'`
     end
 
     def has_pid?

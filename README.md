@@ -37,6 +37,7 @@ Now I can automatically restart your Rails development server as your files chan
 * `:force_run` kills any process that's holding the listen port before attempting to (re)start Rails (**default `false`**)
 * `:pid_file` specify your pid\_file (**default `tmp/pids/[RAILS_ENV].pid`**)
 * `:port` is the server port number (**default `3000`**)
+* `:root` lets you specify the Rails root, i.e. for using guard-rails to run a dummy app within an engine (try `:root => '/spec/dummy'`).
 * `:server` the webserver engine to use (**try `:server => :thin`**)
 * `:start_on_start` will start the server when starting Guard (**default `true`**)
 * `:timeout` waits when restarting the Rails server, in seconds (**default `30`**).

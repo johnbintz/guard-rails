@@ -33,15 +33,14 @@ module Guard
     end
 
     def start
-      server = options[:server] ? "#{options[:server]} and " : ""
-      UI.info "Guard::Rails will now restart your app on port #{options[:port]} using #{server}#{options[:environment]} environment."
+      UI.info "[Guard::Rails] will restart #{options[:server]} on port #{options[:port]} in #{options[:environment]}."
       reload("start") if options[:start_on_start]
     end
 
     def reload(action = "restart")
-      action_cap = action.capitalize
-      UI.info "#{action_cap}ing Rails..."
-      Notifier.notify("Rails #{action}ing on port #{options[:port]} in #{options[:environment]} environment...", :title => "#{action_cap}ing Rails...", :image => :pending)
+      title = "#{action.capitalize}ing Rails..."
+      UI.info title
+      Notifier.notify("Rails #{action}ing on port #{options[:port]} in #{options[:environment]}...", :title => title, :image => :pending)
       if runner.restart
         UI.info "Rails #{action}ed, pid #{runner.pid}"
         Notifier.notify("Rails #{action}ed on port #{options[:port]}.", :title => "Rails #{action}ed!", :image => :success)

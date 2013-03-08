@@ -58,4 +58,5 @@ And I will be there as your call.
 
 ## Philosophy
 
+* **Live in edge** I am tested under Ruby 1.8.7, 1.9.3, 2.0.0 with newest gems. Will be rewrited to fit Ruby 2.0.0 when I am released as version 1.0.0.
 * [Semantic Version](http://semver.org/)

@@ -9,20 +9,13 @@
 Currently, the official fork repository is at [ranmocy/guard-rails](http://github.com/ranmocy/guard-rails).
 Please, come here and communicate with me.
 
-## Want to restart your Rails development server whilst you work? Now you can!
-
-    guard 'rails', :port => 5000 do
-      watch('Gemfile.lock')
-      watch(%r{^(config|lib)/.*})
-    end
-
 ## Install
 
 Please make sure to have [Guard](https://github.com/guard/guard) installed before continue.
 
 Add Guard::Rails to your `Gemfile`:
 
-```bash
+```ruby
 group :development do
   gem 'guard-rails'
 end
@@ -33,6 +26,8 @@ Add the default Guard::Rails template to your `Guardfile` by running:
 ```bash
 $ guard init rails
 ```
+
+Now I can automatically restart your Rails development server as your files changed!
 
 ## Lots of fun options growing!
 

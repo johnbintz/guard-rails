@@ -83,7 +83,7 @@ module Guard
     end
 
     def run_rails_command!
-      Process.spawn @env, build_rails_command
+      `sh -c '#{build_rails_command}' &`
     end
 
     def has_pid?

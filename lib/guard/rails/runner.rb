@@ -35,26 +35,11 @@ module Guard
     end
 
     def build_rails_command
-      return "#{options[:CLI]} --pid #{pid_file}" if options[:CLI]
+      return build_cli_command if options[:CLI]
+      return build_zeus_command if options[:zeus]
 
-      rails_options = [
-        options[:daemon] ? '-d' : nil,
-        options[:debugger] ? '-u' : nil,
-        '-e', options[:environment],
-        '--pid', pid_file,
-        '-p', options[:port],
-        options[:server],
-      ]
-
-      zeus_options = [
-        options[:zeus_plan] || 'server',
-      ]
-
-      # omit env when use zeus
-      @env['RAILS_ENV'] = options[:environment] if options[:environment] && options[:zeus].nil?
-      rails_runner = options[:zeus] ? "zeus #{zeus_options.join(' ')}" : "rails server"
-
-      "#{rails_runner} #{rails_options.join(' ')}"
+      @env['RAILS_ENV'] = options[:environment] if options[:environment]
+      "rails server #{build_options}"
     end
 
     def pid_file
@@ -70,6 +55,33 @@ module Guard
     end
 
     private
+
+    # command builders
+    def build_options
+      rails_options = [
+        options[:daemon] ? '-d' : nil,
+        options[:debugger] ? '-u' : nil,
+        '-e', options[:environment],
+        '--pid', pid_file,
+        '-p', options[:port],
+        options[:server],
+      ]
+
+      rails_options.join(' ')
+    end
+
+    def build_cli_command
+      "#{options[:CLI]} --pid #{pid_file}"
+    end
+
+    def build_zeus_command
+      zeus_options = [
+        options[:zeus_plan] || 'server',
+      ]
+
+      "zeus #{zeus_options.join(' ')} #{build_options}"
+    end
+
     def run_rails_command!
       Process.spawn @env, build_rails_command
     end

@@ -20,11 +20,11 @@ module Guard
     def stop
       if File.file?(pid_file)
         pid = File.read(pid_file).strip
-        system %{kill -SIGINT #{pid}}
+        system "kill -SIGINT #{pid}"
         wait_for_no_pid if $?.exitstatus == 0
 
         # If you lost your pid_file, you are already died.
-        system %{kill -KILL #{pid} >&2 2>/dev/null}
+        system "kill -KILL #{pid} >&2 2>/dev/null"
         FileUtils.rm pid_file, :force => true
       end
     end
@@ -35,7 +35,7 @@ module Guard
     end
 
     def build_rails_command
-      return %{#{options[:CLI]} --pid #{pid_file}} if options[:CLI]
+      return "#{options[:CLI]} --pid #{pid_file}" if options[:CLI]
 
       rails_options = [
         options[:daemon] ? '-d' : nil,
@@ -54,7 +54,7 @@ module Guard
       @env['RAILS_ENV'] = options[:environment] if options[:environment] && options[:zeus].nil?
       rails_runner = options[:zeus] ? "zeus #{zeus_options.join(' ')}" : "rails server"
 
-      %{#{rails_runner} #{rails_options.join(' ')}}
+      "#{rails_runner} #{rails_options.join(' ')}"
     end
 
     def pid_file
@@ -84,14 +84,15 @@ module Guard
 
     def kill_unmanaged_pid!
       if pid = unmanaged_pid
-        system %{kill -KILL #{pid}}
+        system "kill -KILL #{pid}"
         FileUtils.rm pid_file
         wait_for_no_pid
       end
     end
 
     def unmanaged_pid
-      %x{lsof -n -i TCP:#{options[:port]}}.each_line { |line|
+      file_list = `lsof -n -i TCP:#{options[:port]}`
+      file_list.each_line { |line|
         if line["*:#{options[:port]} "]
           return line.split("\s")[1]
         end
@@ -100,6 +101,7 @@ module Guard
     end
 
     private
+
     def wait_for_pid
       wait_for_pid_loop
     end
@@ -118,4 +120,3 @@ module Guard
     end
   end
 end
-

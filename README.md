@@ -12,6 +12,24 @@
       watch(%r{^(config|lib)/.*})
     end
 
+## Install
+
+Please make sure to have [Guard](https://github.com/guard/guard) installed before continue.
+
+Add Guard::Rails to your `Gemfile`:
+
+```bash
+group :development do
+  gem 'guard-rails'
+end
+```
+
+Add the default Guard::Rails template to your `Guardfile` by running:
+
+```bash
+$ guard init rails
+```
+
 ## Lots of fun options growing!
 
 * `:daemon` runs the server as a daemon, without any output to the terminal that ran `guard` (**default `false`**)

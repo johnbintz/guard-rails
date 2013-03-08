@@ -7,7 +7,6 @@ module Guard
     attr_reader :options
 
     def initialize(options)
-      @env     = ENV
       @options = options
     end
 
@@ -34,11 +33,11 @@ module Guard
       start
     end
 
-    def build_rails_command
+    def build_command
       return build_cli_command if options[:CLI]
       return build_zeus_command if options[:zeus]
 
-      @env['RAILS_ENV'] = options[:environment] if options[:environment]
+      ENV['RAILS_ENV'] = options[:environment] if options[:environment]
       "rails server #{build_options}"
     end
 
@@ -79,11 +78,19 @@ module Guard
         options[:zeus_plan] || 'server',
       ]
 
+      # To avoid warning of Zeus
+      # Since setup RAILS_ENV is useless for Zeus
+      ENV['RAILS_ENV'] = nil
       "zeus #{zeus_options.join(' ')} #{build_options}"
     end
 
+    def build_rails_command
+      ENV['RAILS_ENV'] = options[:environment] if options[:environment]
+      "rails server #{build_options}"
+    end
+
     def run_rails_command!
-      `sh -c '#{build_rails_command}' &`
+      `sh -c '#{build_command} &'`
     end
 
     def has_pid?

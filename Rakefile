@@ -8,7 +8,7 @@ require 'rake/version_task'
 Rake::VersionTask.new
 
 include Rake::DSL if defined?(Rake::DSL)
-RVM_PREFIX = "rvm 1.8.7@guard-rails,1.9.3-p327@guard-rails,2.0.0@guard-rails do"
+RVM_PREFIX = "rvm 1.8.7,1.9.3-p327,2.0.0 do"
 
 
 namespace :spec do

@@ -159,7 +159,7 @@ describe Guard::RailsRunner do
       let(:options) { default_options.merge(:root => 'spec/dummy') }
 
       it "should have a cd with the custom rails root" do
-        runner.build_rails_command.should match(%r{cd .*/spec/dummy &&})
+        runner.build_command.should match(%r{cd .*/spec/dummy &&})
       end
     end
   end

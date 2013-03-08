@@ -35,11 +35,10 @@ module Guard
     end
 
     def build_command
-      return build_cli_command if options[:CLI]
-      return build_zeus_command if options[:zeus]
-
-      ENV['RAILS_ENV'] = options[:environment] if options[:environment]
-      "rails server #{build_options}"
+      command = build_cli_command if options[:CLI]
+      command ||= build_zeus_command if options[:zeus]
+      command ||= build_rails_command
+      "sh -c 'cd #{@root} && #{command} &'"
     end
 
     def pid_file
@@ -91,7 +90,7 @@ module Guard
     end
 
     def run_rails_command!
-      `sh -c 'cd #{@root} && #{build_command} &'`
+      system build_command
     end
 
     def has_pid?

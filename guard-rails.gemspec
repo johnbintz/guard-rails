@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/ranmocy/guard-rails"
   s.summary     = %q{Guard your Rails to always be there.}
   s.description = %q{Restart Rails when things change in your app}
+  s.license     = 'MIT'
 
   s.rubyforge_project = "guard-rails"
 

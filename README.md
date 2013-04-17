@@ -49,6 +49,12 @@ Now I can automatically restart your Rails development server as your files chan
 
 * **Multiple instances** use `pid_file` option to run multiple instances with same rails\_env
 
+## Philosophy
+
+* **All Platforms** MRI is the main test case. But will be tested under REE and JRuby.
+* **Live in edge** I am tested under Ruby 1.8.7, 1.9.3, 2.0.0 with newest gems. Will be rewrited to fit Ruby 2.0.0 when I am released as version 1.0.0.
+* [Semantic Version](http://semver.org/)
+
 ## Contribute
 
 The best choise to contact me is the Issues and Pull Request system on GitHub.
@@ -57,8 +63,15 @@ Currently the official fork repository is at [ranmocy/guard-rails](http://github
 Please, post your issue or pull request there.
 And I will be there as your call.
 
-## Philosophy
+## Contributor
 
-* **All Platforms** MRI is the main test case. But will be tested under REE and JRuby.
-* **Live in edge** I am tested under Ruby 1.8.7, 1.9.3, 2.0.0 with newest gems. Will be rewrited to fit Ruby 2.0.0 when I am released as version 1.0.0.
-* [Semantic Version](http://semver.org/)
+* John Bintz
+* Wanzhang Sheng(Ranmocy)
+* Grant Hutchins and Jonathan Mukai-Heidt
+* Adam Michel
+* Paul Schyska
+* Michel Pavan Macedo
+* Darrin Holst
+* Nathan Broadbent
+* Tim Preston
+* Sidney Burks

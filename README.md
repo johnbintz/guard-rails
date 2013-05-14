@@ -65,13 +65,16 @@ And I will be there as your call.
 
 ## Contributor
 
+* Ranmocy Sheng
 * John Bintz
-* Wanzhang Sheng(Ranmocy)
-* Grant Hutchins and Jonathan Mukai-Heidt
-* Adam Michel
-* Paul Schyska
-* Michel Pavan Macedo
-* Darrin Holst
-* Nathan Broadbent
-* Tim Preston
+* Joel Moss
 * Sidney Burks
+* Paul Schyska
+* Tim Preston
+* Nathan Broadbent
+* Adam Michel
+* Benjamin Sullivan
+* Everard Brown
+* Darrin Holst
+* Grant Hutchins and Jonathan Mukai-Heidt
+* Michel Pavan Macedo

@@ -6,12 +6,12 @@
 [![Code Climate](https://codeclimate.com/github/ranmocy/guard-rails.png)](https://codeclimate.com/github/ranmocy/guard-rails)
 
 ## Main repository
-Currently, the official fork repository is at [ranmocy/guard-rails](http://github.com/ranmocy/guard-rails).
+Currently, the official fork repository is at [ranmocy/guard-rails][ranmocy-guard-rails].
 Please, come here and communicate with me.
 
 ## Install
 
-Please make sure to have [Guard](https://github.com/guard/guard) installed before continue.
+Please make sure to have [Guard][guard] installed before continue.
 
 Add Guard::Rails to your `Gemfile`:
 
@@ -41,8 +41,8 @@ Now I can automatically restart your Rails development server as your files chan
 * `:server` the webserver engine to use (**try `:server => :thin`**)
 * `:start_on_start` will start the server when starting Guard (**default `true`**)
 * `:timeout` waits when restarting the Rails server, in seconds (**default `30`**).
-* `:zeus_plan` the [custom plan](https://github.com/burke/zeus/blob/master/docs/ruby/modifying.md) in zeus, only works when `zeus` option is `true` (**default `server`**)
-* `:zeus` support [zeus](https://github.com/burke/zeus) to boost rails init speed (**default `false`**).
+* `:zeus_plan` the [custom plan][zeus-custom-plan] in zeus, only works when `zeus` option is `true` (**default `server`**)
+* `:zeus` support [zeus][zeus] to boost rails init speed (**default `false`**).
 * `:CLI` construct the runner command as your willing! Will omit all options above except `pid_file`! (**default `rails server --pid tmp/pids/[RAILS_ENV].pid`**)
 
 ## How-to
@@ -58,7 +58,7 @@ Now I can automatically restart your Rails development server as your files chan
 ## Contribute
 
 The best choise to contact me is the Issues and Pull Request system on GitHub.
-Currently the official fork repository is at [ranmocy/guard-rails](http://github.com/ranmocy/guard-rails).
+Currently the official fork repository is at [ranmocy/guard-rails][ranmocy-guard-rails].
 
 Please, post your issue or pull request there.
 And I will be there as your call.
@@ -79,3 +79,13 @@ And I will be there as your call.
 * Grant Hutchins and Jonathan Mukai-Heidt
 * Michel Pavan Macedo
 * cablegram
+
+## Copyright
+
+Guard-rails is under **[FOLLOW YOUR HEART PUBLIC LICENSE][FYHPL]** version 2.
+
+[ranmocy-guard-rails]: http://github.com/ranmocy/guard-rails
+[guard]: https://github.com/guard/guard
+[zeus]: https://github.com/burke/zeus
+[zeus-custom-plan]: https://github.com/burke/zeus/blob/master/docs/ruby/modifying.md
+[FYHPL]: http://ranmocy.info/Piece/FYHPL

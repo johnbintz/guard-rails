@@ -67,18 +67,19 @@ And I will be there as your call.
 
 * Ranmocy Sheng
 * John Bintz
+* cablegram
 * Joel Moss
 * Sidney Burks
 * Paul Schyska
-* Tim Preston
-* Nathan Broadbent
 * Adam Michel
-* Benjamin Sullivan
+* Nathan Broadbent
+* Tim Preston
+* Johnny Robeson
+* Grant Hutchins and Jonathan Mukai-Heidt
 * Everard Brown
 * Darrin Holst
-* Grant Hutchins and Jonathan Mukai-Heidt
 * Michel Pavan Macedo
-* cablegram
+* Benjamin Sullivan
 
 ## Copyright
 
@@ -88,4 +89,4 @@ Guard-rails is under **[FOLLOW YOUR HEART PUBLIC LICENSE][FYHPL]** version 2.
 [guard]: https://github.com/guard/guard
 [zeus]: https://github.com/burke/zeus
 [zeus-custom-plan]: https://github.com/burke/zeus/blob/master/docs/ruby/modifying.md
-[FYHPL]: http://ranmocy.info/Piece/FYHPL
+[FYHPL]: http://ranmocy.info/piece/FYHPL.txt

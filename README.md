@@ -83,7 +83,7 @@ And I will be there as your call.
 
 ## Copyright
 
-Guard-rails is under **[FOLLOW YOUR HEART PUBLIC LICENSE][FYHPL]** version 2.
+Guard-rails is under **[FOLLOW YOUR HEART PUBLIC LICENSE][FYHPL]** version 1.
 
 [ranmocy-guard-rails]: http://github.com/ranmocy/guard-rails
 [guard]: https://github.com/guard/guard

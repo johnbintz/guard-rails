@@ -19,6 +19,7 @@ Lots of fun options!
 * `:debugger` runs the server with the debugger enabled (default `false`). Required ruby-debug gem.
 * `:timeout` waits this number of seconds when restarting the Rails server before reporting there's a problem (default `20`).
 * `:server` lets you specify the webserver engine to use (try `:server => :thin`).
+* `:rails_root` lets you specify the root directory of your app (try `:rails_root => 'test/dummy` for engines).
 
 This is super-alpha, but it works for me! Only really hand-tested in Mac OS X. Feel free to fork'n'fix for other
 OSes, and to add some more real tests.

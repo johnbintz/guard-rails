@@ -40,11 +40,19 @@ module Guard
       rails_options << '-u' if options[:debugger]
       rails_options << options[:server] if options[:server]
 
-      %{sh -c 'cd #{Dir.pwd} && RAILS_ENV=#{options[:environment]} rails s #{rails_options.join(' ')} &'}
+      %{sh -c 'cd #{build_rails_path} && RAILS_ENV=#{options[:environment]} rails s #{rails_options.join(' ')} &'}
+    end
+    
+    def build_rails_path
+      if options[:rails_root]
+        File.join(Dir.pwd, options[:rails_root])
+      else  
+        Dir.pwd
+      end
     end
 
     def pid_file
-      File.expand_path("tmp/pids/#{options[:environment]}.pid")
+      File.expand_path(File.join(options[:rails_root].to_s, "tmp/pids/#{options[:environment]}.pid"))
     end
 
     def pid

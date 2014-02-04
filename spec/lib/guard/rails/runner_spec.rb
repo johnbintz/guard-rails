@@ -63,6 +63,14 @@ describe Guard::RailsRunner do
         runner.build_rails_command.should match(%r{thin})
       end
     end
+    
+    context 'custom app path' do
+      let(:options) { default_options.merge(:app_path => 'spec/dummy') }
+
+      it "should have the app path" do
+        runner.build_rails_command.should match(%r{spec/dummy})
+      end
+    end    
   end
 
   describe '#start' do

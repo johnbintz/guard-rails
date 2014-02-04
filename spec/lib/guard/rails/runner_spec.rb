@@ -36,15 +36,15 @@ describe Guard::RailsRunner do
   describe '#build_rails_command' do
     context 'no daemon' do
       it "should not have a daemon switch" do
-        runner.build_rails_command.should_not match(%r{ -d})
+        runner.build_rails_command.last.should_not match(%r{ -d})
       end
     end
 
-    context 'daemon' do
+    context 'daemon', :unless => RUBY_PLATFORM =~ /mswin|msys|mingw/ do
       let(:options) { default_options.merge(:daemon => true) }
 
       it "should have a daemon switch" do
-        runner.build_rails_command.should match(%r{ -d})
+        runner.build_rails_command.last.should match(%r{ -d})
       end
     end
     
@@ -52,7 +52,7 @@ describe Guard::RailsRunner do
       let(:options) { default_options.merge(:debugger => true) }
 
       it "should have a debugger switch" do
-        runner.build_rails_command.should match(%r{ -u})
+        runner.build_rails_command.last.should match(%r{ -u})
       end
     end
 
@@ -60,24 +60,29 @@ describe Guard::RailsRunner do
       let(:options) { default_options.merge(:server => 'thin') }
 
       it "should have the server name" do
-        runner.build_rails_command.should match(%r{thin})
+        runner.build_rails_command.last.should match(%r{thin})
       end
     end
   end
 
   describe '#start' do
+    include FakeFS::SpecHelpers
+
     let(:kill_expectation) { runner.expects(:kill_unmanaged_pid!) }
     let(:pid_stub) { runner.stubs(:has_pid?) }
 
     before do
-      runner.expects(:run_rails_command!).once
+      FileUtils.mkdir_p File.split(runner.pid_file).first
+      process = mock('process')
+      process.stubs(:pid).returns(123)
+      runner.expects(:run_rails_command!).once.returns(process)
     end
 
     context 'do not force run' do
       before do
         pid_stub.returns(true)
         kill_expectation.never
-        runner.expects(:wait_for_pid_action).never
+        runner.stubs(:rails_running?).once.returns(true)
       end
 
       it "should act properly" do
@@ -91,7 +96,7 @@ describe Guard::RailsRunner do
       before do
         pid_stub.returns(true)
         kill_expectation.once
-        runner.expects(:wait_for_pid_action).never
+        runner.stubs(:rails_running?).once.returns(true)
       end
 
       it "should act properly" do
@@ -100,10 +105,12 @@ describe Guard::RailsRunner do
     end
 
     context "don't write the pid" do
+      let(:options) { default_options.merge(:timeout => 0.1) }
+
       before do
         pid_stub.returns(false)
         kill_expectation.never
-        runner.expects(:wait_for_pid_action).times(Guard::RailsRunner::MAX_WAIT_COUNT)
+        runner.stubs(:rails_running?).once.returns(false)
       end
 
       it "should act properly" do
@@ -112,12 +119,4 @@ describe Guard::RailsRunner do
     end
   end
 
-  describe '#sleep_time' do
-    let(:timeout) { 30 }
-    let(:options) { default_options.merge(:timeout => timeout) }
-
-    it "should adjust the sleep time as necessary" do
-      runner.sleep_time.should == (timeout.to_f / Guard::RailsRunner::MAX_WAIT_COUNT.to_f)
-    end
-  end
 end
